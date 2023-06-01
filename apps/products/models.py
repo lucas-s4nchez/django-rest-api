@@ -5,15 +5,10 @@ from apps.base.models import BaseModel
 
 
 class MeasureUnit(BaseModel):
-    """Model definition for MODELNAME."""
-
-    # TODO: Define fields here
     description = models.CharField(
         'description', max_length=50, blank=False, null=False, unique=True)
 
     class Meta:
-        """Meta definition for MODELNAME."""
-
         verbose_name = 'Unidad de medida'
         verbose_name_plural = 'Unidades de medidas'
 
@@ -22,17 +17,10 @@ class MeasureUnit(BaseModel):
 
 
 class Category(BaseModel):
-    """Model definition for MODELNAME."""
-
-    # TODO: Define fields here
     description = models.CharField(
         'description', max_length=50, blank=False, null=False, unique=True)
-    measure_unit = models.ForeignKey(
-        MeasureUnit, on_delete=models.CASCADE, verbose_name='measure unit')
 
     class Meta:
-        """Meta definition for MODELNAME."""
-
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
 
@@ -41,16 +29,15 @@ class Category(BaseModel):
 
 
 class Product(BaseModel):
-    """Model definition for MODELNAME."""
-
-    # TODO: Define fields here
     name = models.CharField('name', max_length=150,
                             blank=False, null=False, unique=True)
     description = models.TextField('description', blank=False, null=False)
+    measure_unit = models.ForeignKey(
+        MeasureUnit, on_delete=models.CASCADE, verbose_name='measure unit', null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, verbose_name='category', null=True)
 
     class Meta:
-        """Meta definition for MODELNAME."""
-
         verbose_name = 'Productos'
         verbose_name_plural = 'Productos'
 
